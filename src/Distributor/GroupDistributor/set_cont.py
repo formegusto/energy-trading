@@ -2,7 +2,7 @@ import math as mt
 import numpy as np
 
 
-def set_cont(self):
+def set_cont(self, norm=None):
     usages = self.meter_month['usage (kWh)'].values
     bins = round(mt.sqrt(usages.size / 2))
 
@@ -29,3 +29,6 @@ def set_cont(self):
     group_cont = (hist[:, -1] / hist[:, -1].sum())
     self.groups_ = new_groups.astype("int")
     self.cont_ = np.array([group_cont[_] for _ in self.groups_])
+
+    if norm is not None:
+        self.cont_ = norm(self.cont_)

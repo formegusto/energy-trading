@@ -1,4 +1,4 @@
-from ..common import set_init, select_month, set_calc
+from ..common import set_init, select_month, set_calc, set_init_csv
 from .set_cont import set_cont
 from .distribute import distribute, distribute_table
 from ...PublicAnalysis.BillTable import BillTable
@@ -19,3 +19,4 @@ GroupDistributor.set_calc = set_calc
 GroupDistributor.set_cont = set_cont
 GroupDistributor.distribute = distribute
 GroupDistributor.distribute_table = distribute_table
+GroupDistributor.set_init_csv = set_init_csv

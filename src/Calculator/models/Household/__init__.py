@@ -6,6 +6,8 @@ class Household:
     def __init__(self, name, kwh):
         self.name = name
         self.kwh = kwh
+        self.public = 0
+        self.adjust = 0
 
     def to_rate_dict(self, mul=1):
         return {

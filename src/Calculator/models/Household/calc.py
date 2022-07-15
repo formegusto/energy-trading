@@ -61,4 +61,4 @@ def fund(self):
 
 @property
 def elec_bill_vat_fund(self):
-    return np.floor((self.elec_bill + self.vat + self.fund) * 0.1) * 10
+    return np.floor((self.elec_bill + self.vat + self.fund) * 0.1) * 10 + self.public + self.adjust

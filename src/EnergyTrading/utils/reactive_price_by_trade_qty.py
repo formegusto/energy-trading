@@ -17,5 +17,7 @@ def reactive_price_by_trade_qty(qty_trade, usage, step, elec_rate):
     err_demands = demands[1] - demands[0]
     output_price = ((elec_rate[1] - elec_rate[0]) / err_demands) * qty_trade -\
         (elec_rate[1] * demands[0] - elec_rate[0] * demands[1]) / (err_demands)
+    # print(usage, ((elec_rate[1] - elec_rate[0]) / err_demands) * qty_trade,
+    #       (elec_rate[1] * demands[0] - elec_rate[0] * demands[1]) / (err_demands), output_price)
 
     return output_price
