@@ -1,5 +1,5 @@
 
-from _src.Calculator.common.get_season_kr import get_season_kr
+from .common import get_season_kr
 
 from .set_households import set_households
 from .set_apt import set_apt

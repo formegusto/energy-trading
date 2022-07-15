@@ -5,9 +5,11 @@ from ..Calculator.common.rate import ENV, FUEL
 @property
 def basic(self):
     col_needed = self.calc.apt_obj.basic * self.calc.household_count
-    col_household = sum([
-        _.basic if _.kwh > self.min_kwh else 0
-        for _ in self.calc.households])
+    # min kwh 사용
+    # col_household = sum([
+    #     _.basic if _.kwh > self.min_kwh else 0
+    #     for _ in self.calc.households])
+    col_household = sum([_.basic for _ in self.calc.households])
 
     return col_needed - col_household
 
@@ -18,8 +20,11 @@ def elec_rate(self):
     elec_frame = np.zeros(ELEC.size)
 
     col_needed = self.calc.apt_obj.steps * self.calc.household_count
+    # min kwh 사용
+    # col_household = np.array(
+    #     [_.steps if _.kwh > self.min_kwh else elec_frame for _ in self.calc.households])
     col_household = np.array(
-        [_.steps if _.kwh > self.min_kwh else elec_frame for _ in self.calc.households])
+        [_.steps for _ in self.calc.households])
     col_household = col_household.sum(axis=0)
 
     remain_col = col_needed - col_household
@@ -30,26 +35,32 @@ def elec_rate(self):
 
 @property
 def min_won(self):
-    return sum([0 if _.kwh > self.min_kwh else 1000 for _ in self.calc.households])
+    # return sum([0 if _.kwh > self.min_kwh else 1000 for _ in self.calc.households])
+    return 0
 
 
 @property
 def env(self):
+    # return (self.calc.apt_obj.env * self.calc.household_count) \
+    #     - sum([ENV * _.kwh if _.kwh > self.min_kwh else 0 for _ in self.calc.households])
     return (self.calc.apt_obj.env * self.calc.household_count) \
-        - sum([ENV * _.kwh if _.kwh > self.min_kwh else 0 for _ in self.calc.households])
+        - sum([ENV * _.kwh for _ in self.calc.households])
 
 
 @property
 def fuel(self):
+    # return (self.calc.apt_obj.fuel * self.calc.household_count) \
+    #     - sum([FUEL * _.kwh if _.kwh >
+    #           self.min_kwh else 0 for _ in self.calc.households])
     return (self.calc.apt_obj.fuel * self.calc.household_count) \
-        - sum([FUEL * _.kwh if _.kwh >
-              self.min_kwh else 0 for _ in self.calc.households])
+        - sum([FUEL * _.kwh for _ in self.calc.households])
 
 
 @property
 def guarantee(self):
     apt_guarantee = self.calc.apt_obj.guarantee * self.calc.household_count
-    return apt_guarantee - sum([_.guarantee if _.kwh > self.min_kwh else 0 for _ in self.calc.households])
+    # return apt_guarantee - sum([_.guarantee if _.kwh > self.min_kwh else 0 for _ in self.calc.households])
+    return apt_guarantee - sum([_.guarantee for _ in self.calc.households])
 
 
 @property

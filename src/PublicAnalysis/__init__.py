@@ -15,9 +15,9 @@ class PublicAnalysis:
         self.basic = Basic(analyzer=self)
         self.elec_rate = ElecRate(analyzer=self)
 
-    def set_bill_table(self, public_percentage=30):
+    def set_bill_table(self, kwh=None, public_percentage=30):
         self.bill_table = BillTable(
-            analyzer=self, public_percentage=public_percentage)
+            analyzer=self, kwh=kwh, public_percentage=public_percentage)
 
 
 PublicAnalysis.set_init = set_init
