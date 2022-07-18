@@ -33,7 +33,8 @@ min_bill = 0
 
 @ property
 def elec_bill(self):
-    _elec_bill = self.basic + self.elec_rate + self.env + self.fuel - self.guarantee
+    _elec_bill = self.basic + self.elec_rate + self.env + \
+        self.fuel - self.guarantee
     if _elec_bill < min_bill:
         return 1000
     else:

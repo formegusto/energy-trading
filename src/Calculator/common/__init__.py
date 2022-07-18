@@ -1,4 +1,5 @@
-from .rate import BASIC, ELEC, ENV, FUEL, GUARANTEE, STEP_LIMITS_HOUSEHOLD, STEP
+# from .rate import BASIC, ELEC, ENV, FUEL, GUARANTEE, STEP_LIMITS_HOUSEHOLD, STEP
+from .rate_v2 import BASIC, ELEC, ENV, FUEL, GUARANTEE, STEP_LIMITS_HOUSEHOLD, STEP
 from .get_season_kr import get_season_kr
 
 __version__ = "1.0.0"

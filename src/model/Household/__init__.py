@@ -3,10 +3,11 @@ from .calc import basic, elec_rate, env, fuel, guarantee, elec_bill, fund, vat, 
 
 
 class Household:
-    def __init__(self, name, kwh, mul=1):
+    def __init__(self, name, kwh, mul=1, trade_benefit=0):
         self.name = name
         self.kwh = kwh
         self.mul = mul
+        self.trade_benefit = trade_benefit
 
     def to_rate_dict(self):
         return {
