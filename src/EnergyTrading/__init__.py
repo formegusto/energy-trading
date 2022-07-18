@@ -4,6 +4,7 @@ from .set_init import set_init
 from .buyer_selection_by_list_idx import buyer_selection_by_list_idx
 from .get_operation import get_buyer_profit, get_result
 from .set_settlement_infos import set_settlement_infos
+import numpy as np
 
 
 class EnergyTrading:
@@ -13,6 +14,8 @@ class EnergyTrading:
         self.trade_unit = trade_unit
         self.datas = pd.read_csv(file_path)
         self.datas.columns = ['name', 'usage (kWh)']
+        self.datas['usage (kWh)'] = np.floor(
+            self.datas['usage (kWh)']).astype("int")
 
 
 EnergyTrading.set_init = set_init

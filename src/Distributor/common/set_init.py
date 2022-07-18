@@ -44,6 +44,8 @@ def set_init(self):
 def set_init_csv(self, month):
     self.meter_month = pd.read_csv(self.file_path)
     self.meter_month.columns = ['name', 'usage (kWh)']
+    self.meter_month['usage (kWh)'] = np.floor(
+        self.meter_month['usage (kWh)']).astype("int")
 
     self.month = month
 

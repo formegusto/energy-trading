@@ -1,7 +1,7 @@
 from .Basic import Basic
 from .ElecRate import ElecRate
 from .BillTable import BillTable
-from .set_init import set_init
+from .set_init import set_init, set_init_csv
 from .set_calc import set_calc
 from .select_month import select_month
 from .get_col_burden import get_col_burden
@@ -21,6 +21,7 @@ class PublicAnalysis:
 
 
 PublicAnalysis.set_init = set_init
+PublicAnalysis.set_init_csv = set_init_csv
 PublicAnalysis.set_calc = set_calc
 PublicAnalysis.select_month = select_month
 PublicAnalysis.get_col_burden = get_col_burden

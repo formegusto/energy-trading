@@ -11,15 +11,20 @@ def set_settlement_infos(self):
     public_usage = total_household_usage * 0.25
 
     APT = total_household_usage + public_usage
-    APT_mean = APT / household_count
+    APT_mean = round(APT / household_count)
     apt = Household(name='apt', kwh=APT_mean).set_rate("단일", self.season)
+    print(apt.kwh)
+    print(apt.basic + apt.elec_rate)
 
     original_households_charge = self.datas.apply(
         lambda x: Household(name=x['name'], kwh=x['usage (kWh)'])
-        .set_rate("단일", self.season).elec_rate, axis=1)\
+        .set_rate("단일", self.season).elec_rate + Household(name=x['name'], kwh=x['usage (kWh)'])
+        .set_rate("단일", self.season).basic, axis=1)\
         .values
+
+    print(original_households_charge)
     self.datas['전력량요금'] = original_households_charge
-    whole_apt_charge = apt.elec_rate * household_count
+    whole_apt_charge = (apt.elec_rate + apt.basic) * household_count
     households_charge = original_households_charge.sum()
     public_charge = whole_apt_charge - households_charge
     self.datas['공용부요금'] = public_charge / household_count

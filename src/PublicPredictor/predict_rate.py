@@ -17,7 +17,7 @@ def basic(self):
 @property
 def elec_rate(self):
     ELEC = self.calc.households[0].ELEC
-    elec_frame = np.zeros(ELEC.size)
+    # elec_frame = np.zeros(ELEC.size)
 
     col_needed = self.calc.apt_obj.steps * self.calc.household_count
     # min kwh 사용
@@ -31,6 +31,11 @@ def elec_rate(self):
 
     remain_col *= ELEC
     return remain_col.sum()
+
+
+@property
+def trade_result(self):
+    return np.sum([_.trade_benefit for _ in self.households])
 
 
 @property

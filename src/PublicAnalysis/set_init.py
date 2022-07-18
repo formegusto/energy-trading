@@ -40,3 +40,14 @@ def set_init(self):
     self.meter_year = pd.DataFrame(meter_year.reshape(-1, names.size),
                                    columns=names,
                                    index=months, dtype=np.int)
+
+
+def set_init_csv(self, month):
+    self.meter_month = pd.read_csv(self.file_path)
+    self.meter_month.columns = ['name', 'usage (kWh)']
+    self.meter_month['usage (kWh)'] = np.floor(
+        self.meter_month['usage (kWh)']).astype("int")
+
+    self.month = month
+
+    return self

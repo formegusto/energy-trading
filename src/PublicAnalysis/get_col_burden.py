@@ -24,7 +24,10 @@ def get_col_burden(self):
                           month=self.month,
                           contract="단일").set_households().set_apt(kwh=apt).set_bill()
         _pri_public_won = round(calc.public_won / calc.household_count)
-
+        if "거래 이익" in _datas.columns:
+            _pri_trade_price = round(
+                target_data['거래 이익'] / calc.household_count)
+            _pri_public_won -= _pri_trade_price
         elec_rate_col_burden.append(pri_public_won / _pri_public_won)
 
     elec_rate_col_burden = np.array(elec_rate_col_burden)
