@@ -3,7 +3,7 @@ from .calc import basic, elec_rate, env, fuel, guarantee, elec_bill, fund, vat, 
 
 
 class Household:
-    def __init__(self, name, kwh, mul=1, trade_benefit=0):
+    def __init__(self, name, kwh, trade_benefit=0, mul=1, ):
         self.name = name
         self.kwh = kwh
         self.mul = mul
