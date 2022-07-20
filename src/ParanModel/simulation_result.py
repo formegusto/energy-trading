@@ -18,7 +18,7 @@ def simulation_result(self, kwh=None, public_percentage=30):
     before_households_price = np.array(
         [_.basic + _.elec_rate - _.trade_benefit for _ in self.households]).sum()
     self.after_households = np.array([Household(name, kwh, benefit).set_rate("단일", "기타")
-                                      for name, kwh, benefit in self.simulation_datas.to_numpy()])
+                                      for name, kwh, benefit in self.simulation_datas.iloc[:, :3].to_numpy()])
     after_households_price = np.array(
         [_.basic + _.elec_rate - _.trade_benefit for _ in self.after_households]).sum()
 
