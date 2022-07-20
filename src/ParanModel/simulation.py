@@ -6,7 +6,7 @@ from .after_trade_kwh import after_trade_kwh
 
 def simulation(self):
     simulation_datas = self.datas.copy()
-    simulation_datas['거래 가격'] = 0
+    simulation_datas['거래 이익'] = 0
     simulation_datas['구매 횟수'] = 0
     simulation_datas['판매 횟수'] = 0
     STEP = self.households[0].STEP
@@ -31,6 +31,9 @@ def simulation(self):
         max_benefit_seller = sell_pos_households[max_benefit_reco]
         max_benefit_reco = reco_values[max_benefit_reco]
         max_benefit_buyer = households[int(max_benefit_reco[0])]
+        print(max_benefit_seller.name, max_benefit_reco, max_benefit_buyer.name)
+
+        # print(max_benefit_reco)
 
         # print(max_benefit_seller.kwh, max_benefit_buyer.kwh)
         # print(max_benefit_reco)
@@ -39,7 +42,7 @@ def simulation(self):
         simulation_datas.at[simulation_datas['name'] == max_benefit_seller.name, [
             'usage (kWh)']] = after_seller_kwh
         simulation_datas.at[simulation_datas['name'] ==
-                            max_benefit_seller.name, ['거래 가격']] = max_benefit_reco[1]
+                            max_benefit_seller.name, ['거래 이익']] = max_benefit_reco[1]
         simulation_datas.at[simulation_datas['name'] ==
                             max_benefit_seller.name, ['판매 횟수']] = simulation_datas.loc[simulation_datas['name'] ==
                                                                                        max_benefit_seller.name, ['판매 횟수']].values[0] + 1
@@ -47,9 +50,9 @@ def simulation(self):
         simulation_datas.at[simulation_datas['name'] == max_benefit_buyer.name, [
             'usage (kWh)']] = after_buyer_kwh
         before_buyer_trade_price = simulation_datas.loc[simulation_datas['name']
-                                                        == max_benefit_buyer.name, ['거래 가격']].values[0]
+                                                        == max_benefit_buyer.name, ['거래 이익']].values[0]
         simulation_datas.at[simulation_datas['name'] ==
-                            max_benefit_buyer.name, ['거래 가격']] = before_buyer_trade_price + max_benefit_reco[1] * -1
+                            max_benefit_buyer.name, ['거래 이익']] = before_buyer_trade_price + max_benefit_reco[1]
         simulation_datas.at[simulation_datas['name'] ==
                             max_benefit_buyer.name, ['구매 횟수']] = simulation_datas.loc[simulation_datas['name'] ==
                                                                                       max_benefit_buyer.name, ['구매 횟수']].values[0] + 1

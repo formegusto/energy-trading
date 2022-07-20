@@ -2,7 +2,7 @@ import numpy as np
 from ..model import Household
 
 
-def get_benefit(seller, buyer, log=False):
+def get_benefit(seller, buyer, log=False, return_price=True):
     if log:
         print(seller.kwh, buyer.kwh)
 
