@@ -1,3 +1,4 @@
+from curses import color_content
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,11 +13,12 @@ def get_col_burden(self):
         [self.calc.apt_obj.basic / _.basic for _ in self.calc.households])
 
     elec_rate_col_burden = list()
-    _datas = self.calc.datas.copy()
+    _datas = self.meter_month.copy()
     public_kwh = self.calc.public_kwh
     pri_public_won = round(self.calc.public_won / self.calc.household_count)
 
-    for idx, target_data in self.calc.datas.iterrows():
+    for idx, target_data in self.meter_month.iterrows():
+        h_obj = self.calc.households[idx]
         _datas['usage (kWh)'] = target_data['usage (kWh)']
         apt = _datas['usage (kWh)'].sum() + public_kwh
 
@@ -24,11 +26,12 @@ def get_col_burden(self):
                           month=self.month,
                           contract="단일").set_households().set_apt(kwh=apt).set_bill()
         _pri_public_won = round(calc.public_won / calc.household_count)
-        if "거래 이익" in _datas.columns:
-            _pri_trade_price = round(
-                target_data['거래 이익'] / calc.household_count)
-            _pri_public_won -= _pri_trade_price
-        elec_rate_col_burden.append(pri_public_won / _pri_public_won)
+        # if "거래 이익" in _datas.columns:
+        #     _pri_trade_price = round(
+        #         target_data['거래 이익'] / calc.household_count)
+        #     _pri_public_won -= _pri_trade_price
+        col_burden = (pri_public_won - h_obj.trade_benefit) / _pri_public_won
+        elec_rate_col_burden.append(0 if col_burden < 0 else col_burden)
 
     elec_rate_col_burden = np.array(elec_rate_col_burden)
 
@@ -37,12 +40,14 @@ def get_col_burden(self):
     datas = [basic_col_burden, elec_rate_col_burden]
     titles = ['기본요금 수거부담율', '전력량요금 수거부담율']
 
-    for idx, data in enumerate(datas):
-        title = titles[idx]
-        ax = plt.subplot(2, 1, idx+1)
+    # for idx, data in enumerate(datas):
+    #     title = titles[idx]
+    #     ax = plt.subplot(2, 1, idx+1)
 
-        ax.bar(range(self.calc.household_count), data, color='g')
-        ax.set_title(title)
+    #     ax.bar(range(self.calc.household_count), data, color='g')
+    #     ax.set_title(title)
+    plt.bar(range(self.calc.household_count), datas[1], color='g')
+    plt.title(titles[1])
 
     plt.show()
 

@@ -5,11 +5,13 @@ from .set_init import set_init, set_init_csv
 from .set_calc import set_calc
 from .select_month import select_month
 from .get_col_burden import get_col_burden
+from .inject_trader import inject_trader
 
 
 class PublicAnalysis:
     def __init__(self, file_path):
         self.file_path = file_path
+        self.energy_trader = None
 
     def set(self):
         self.basic = Basic(analyzer=self)
@@ -25,3 +27,4 @@ PublicAnalysis.set_init_csv = set_init_csv
 PublicAnalysis.set_calc = set_calc
 PublicAnalysis.select_month = select_month
 PublicAnalysis.get_col_burden = get_col_burden
+PublicAnalysis.inject_trader = inject_trader
