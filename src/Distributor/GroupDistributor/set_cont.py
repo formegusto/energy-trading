@@ -3,7 +3,15 @@ import numpy as np
 
 
 def set_cont(self, norm=None):
-    usages = self.meter_month['usage (kWh)'].values
+    if self.energy_trader is None:
+        usages = self.meter_month['usage (kWh)'].values
+    else:
+        _datas = self.energy_trader.datas.copy()
+        indexing = self.energy_trader.simulation_datas['usage (kWh)'] > _datas['usage (kWh)']
+        new_usage = self.energy_trader.simulation_datas['usage (kWh)'][indexing]
+        _datas.loc[indexing, ['usage (kWh)']] = new_usage
+
+        usages = _datas['usage (kWh)'].values
     bins = round(mt.sqrt(usages.size / 2))
 
     y, x = np.histogram(usages, bins=bins)

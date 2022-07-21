@@ -1,4 +1,4 @@
-from ..common import set_init, select_month, set_calc, set_init_csv
+from ..common import set_init, select_month, set_calc, set_init_csv, inject_trader
 from .set_cont import set_cont
 from .distribute import distribute, distribute_table
 from ...PublicAnalysis.BillTable import BillTable
@@ -7,6 +7,7 @@ from ...PublicAnalysis.BillTable import BillTable
 class GroupDistributor:
     def __init__(self, file_path):
         self.file_path = file_path
+        self.energy_trader = None
 
     def set_bill_table(self, public_percentage=30):
         self.bill_table = BillTable(
@@ -20,3 +21,4 @@ GroupDistributor.set_cont = set_cont
 GroupDistributor.distribute = distribute
 GroupDistributor.distribute_table = distribute_table
 GroupDistributor.set_init_csv = set_init_csv
+GroupDistributor.inject_trader = inject_trader
