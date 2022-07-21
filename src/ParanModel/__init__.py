@@ -3,6 +3,7 @@ import numpy as np
 from ..model import Household
 from .simulation import simulation
 from .simulation_result import simulation_result
+from .simulation_public import simulation_public
 
 
 class ParanModel:
@@ -16,3 +17,4 @@ class ParanModel:
 
 ParanModel.simulation = simulation
 ParanModel.simulation_result = simulation_result
+ParanModel.simulation_public = simulation_public

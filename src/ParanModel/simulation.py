@@ -31,7 +31,7 @@ def simulation(self):
         max_benefit_seller = sell_pos_households[max_benefit_reco]
         max_benefit_reco = reco_values[max_benefit_reco]
         max_benefit_buyer = households[int(max_benefit_reco[0])]
-        print(max_benefit_seller.name, max_benefit_reco, max_benefit_buyer.name)
+        # print(max_benefit_seller.name, max_benefit_reco, max_benefit_buyer.name)
 
         # print(max_benefit_reco)
 
