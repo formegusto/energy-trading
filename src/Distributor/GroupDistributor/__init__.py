@@ -2,6 +2,7 @@ from ..common import set_init, select_month, set_calc, set_init_csv, inject_trad
 from .set_cont import set_cont
 from .distribute import distribute, distribute_table
 from ...PublicAnalysis.BillTable import BillTable
+from .get_result import get_result
 
 
 class GroupDistributor:
@@ -22,3 +23,4 @@ GroupDistributor.distribute = distribute
 GroupDistributor.distribute_table = distribute_table
 GroupDistributor.set_init_csv = set_init_csv
 GroupDistributor.inject_trader = inject_trader
+GroupDistributor.get_result = get_result
